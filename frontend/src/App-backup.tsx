@@ -22,7 +22,7 @@ function PrivateRoute({ children, allowedRoles }: PrivateRouteProps) {
   }
 
   if (allowedRoles && !allowedRoles.some(role => user.roles?.includes(role))) {
-    // Redirigir según el rol
+
     if (user.roles?.includes('Administrador')) {
       return <Navigate to="/reportes" />;
     }
@@ -59,7 +59,7 @@ function App() {
             }
           />
 
-          {/* Redirección por defecto según rol */}
+          {/* Redirección por default */}
           <Route
             path="/"
             element={
@@ -74,7 +74,7 @@ function App() {
   );
 }
 
-// Componente auxiliar para redirigir según rol
+
 function RoleBasedRedirect() {
   const { user } = useAuth();
 

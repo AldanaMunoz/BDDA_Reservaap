@@ -8,7 +8,7 @@ import './AsistenciaDetail.css';
 
 type ViewLevel = 'temporada' | 'mes' | 'dia';
 
-// Helper para formatear fechas sin problemas de timezone
+
 const formatDateLocal = (dateString: string) => {
   const [year, month, day] = dateString.split('-');
   return `${day}/${month}/${year}`;
@@ -18,28 +18,28 @@ function AsistenciaDetail() {
   const navigate = useNavigate();
   const [searchParams, setSearchParams] = useSearchParams();
   
-  // Estado para determinar el nivel de vista
+
   const [viewLevel, setViewLevel] = useState<ViewLevel>('temporada');
   const [tipoEmpleado, setTipoEmpleado] = useState('todos');
   const [estadosSeleccionados, setEstadosSeleccionados] = useState<string[]>(['confirmada', 'noshow', 'cancelada']);
   const [loading, setLoading] = useState(true);
   
-  // Datos por nivel
+
   const [dataTemporada, setDataTemporada] = useState<AsistenciaTemporada | null>(null);
   const [dataMes, setDataMes] = useState<AsistenciaMes | null>(null);
   const [dataDia, setDataDia] = useState<AsistenciaDia | null>(null);
   
-  // Parámetros de navegación
+
   const [selectedAnio, setSelectedAnio] = useState<number | null>(null);
   const [selectedMes, setSelectedMes] = useState<number | null>(null);
   const [selectedFecha, setSelectedFecha] = useState<string | null>(null);
   
-  // Paginación
+
   const [currentPage, setCurrentPage] = useState(1);
   const [itemsPerPage, setItemsPerPage] = useState(25);
 
   useEffect(() => {
-    // Leer parámetros de URL
+
     const nivel = searchParams.get('nivel') as ViewLevel || 'temporada';
     const anio = searchParams.get('anio');
     const mes = searchParams.get('mes');
@@ -92,7 +92,7 @@ function AsistenciaDetail() {
     }
   };
 
-  // Navegación entre niveles
+
   const navigateToMes = (anio: number, mes: number) => {
     setSearchParams({
       nivel: 'mes',
@@ -130,7 +130,7 @@ function AsistenciaDetail() {
   const handleTipoChange = (tipo: string) => {
     const newParams: any = { ...Object.fromEntries(searchParams), tipo };
     if (viewLevel === 'dia') {
-      newParams.page = '1'; // Reset pagination
+      newParams.page = '1'; 
     }
     setSearchParams(newParams);
   };
@@ -259,7 +259,7 @@ function AsistenciaDetail() {
           </div>
         </div>
 
-        {/* NIVEL 1: Vista de Temporada */}
+        {/* Vista de Temporada */}
         {viewLevel === 'temporada' && dataTemporada && (
           <>
             <div className="metric-main-card">
@@ -330,7 +330,7 @@ function AsistenciaDetail() {
           </>
         )}
 
-        {/* NIVEL 2: Vista de Mes */}
+        {/* Vista de Mes */}
         {viewLevel === 'mes' && dataMes && (
           <>
             <div className="metric-main-card">
@@ -392,7 +392,7 @@ function AsistenciaDetail() {
           </>
         )}
 
-        {/* NIVEL 3: Vista de Día */}
+        {/* Vista de Día */}
         {viewLevel === 'dia' && dataDia && (
           <>
             <div className="export-buttons">

@@ -176,7 +176,7 @@ function ReservasPorDiaDetail() {
           <p className="detail-subtitle">Dashboards</p>
         </div>
 
-        {/* NIVEL 1: Vista de Temporada */}
+        {/* Vista de Temporada */}
         {viewLevel === 'temporada' && dataTemporada && (
           <>
             <div className="info-card">
@@ -236,7 +236,7 @@ function ReservasPorDiaDetail() {
           </>
         )}
 
-        {/* NIVEL 2: Vista de día de la semana */}
+        {/* Vista de día de la semana */}
         {viewLevel === 'dia_semana' && dataDiaSemana && selectedDiaSemana && (
           <>
             <div className="info-card">
@@ -281,7 +281,7 @@ function ReservasPorDiaDetail() {
           </>
         )}
 
-        {/* NIVEL 3: Vista de fecha específica */}
+        {/* Vista de fecha específica */}
         {viewLevel === 'fecha' && dataFecha && selectedFecha && (
           <>
             <div className="info-card">

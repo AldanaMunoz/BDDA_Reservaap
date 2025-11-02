@@ -7,7 +7,7 @@ import './ConsumoTipoDetail.css';
 
 type ViewLevel = 'temporada' | 'mes' | 'dia';
 
-// Helper para formatear fechas sin problemas de timezone
+
 const formatDateLocal = (dateString: string) => {
   const [year, month, day] = dateString.split('-');
   return `${day}/${month}/${year}`;
@@ -20,12 +20,12 @@ function ConsumoTipoDetail() {
   const [viewLevel, setViewLevel] = useState<ViewLevel>('temporada');
   const [loading, setLoading] = useState(true);
 
-  // Datos por nivel
+
   const [dataTemporada, setDataTemporada] = useState<ConsumoTipoTemporada | null>(null);
   const [dataMes, setDataMes] = useState<ConsumoTipoMes | null>(null);
   const [dataDia, setDataDia] = useState<ConsumoTipoDia | null>(null);
 
-  // Parámetros de navegación
+
   const [selectedAnio, setSelectedAnio] = useState<number | null>(null);
   const [selectedMes, setSelectedMes] = useState<number | null>(null);
   const [selectedFecha, setSelectedFecha] = useState<string | null>(null);
@@ -106,10 +106,16 @@ function ConsumoTipoDetail() {
     ];
 
     if (viewLevel === 'temporada') {
-      items.push({ label: 'Consumo por Tipo de Empleado' });
+      items.push({
+        label: 'Consumo por Tipo de Empleado',
+        path: ''
+      });
     } else if (viewLevel === 'mes' && dataMes) {
       items.push({ label: 'Consumo por Tipo de Empleado', path: '/reportes/consumo-tipo' });
-      items.push({ label: `${dataMes.mes.nombre_mes} ${dataMes.mes.anio}` });
+      items.push({
+        label: `${dataMes.mes.nombre_mes} ${dataMes.mes.anio}`,
+        path: ''
+      });
     } else if (viewLevel === 'dia' && selectedFecha) {
       items.push({ label: 'Consumo por Tipo de Empleado', path: '/reportes/consumo-tipo' });
       if (selectedAnio && selectedMes) {
@@ -118,7 +124,10 @@ function ConsumoTipoDetail() {
           path: `/reportes/consumo-tipo?nivel=mes&anio=${selectedAnio}&mes=${selectedMes}`
         });
       }
-      items.push({ label: formatDateLocal(selectedFecha) });
+      items.push({
+        label: formatDateLocal(selectedFecha),
+        path: ''
+      });
     }
 
     return items;
@@ -153,7 +162,7 @@ function ConsumoTipoDetail() {
           <h1>Consumo mensual por tipo de empleado</h1>
         </div>
 
-        {/* NIVEL 1: Vista de Temporada */}
+        {/* Vista de Temporada */}
         {viewLevel === 'temporada' && dataTemporada && (
           <>
             <div className="info-card">
@@ -211,7 +220,7 @@ function ConsumoTipoDetail() {
           </>
         )}
 
-        {/* NIVEL 2: Vista de Mes */}
+        {/* Vista de Mes */}
         {viewLevel === 'mes' && dataMes && (
           <>
             <div className="info-card">
@@ -273,7 +282,7 @@ function ConsumoTipoDetail() {
           </>
         )}
 
-        {/* NIVEL 3: Vista de Día */}
+        {/* Vista de Día */}
         {viewLevel === 'dia' && dataDia && selectedFecha && (
           <>
             <div className="info-card">

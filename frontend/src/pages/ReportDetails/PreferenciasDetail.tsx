@@ -7,7 +7,7 @@ import './PreferenciasDetail.css';
 
 type ViewLevel = 'temporada' | 'mes' | 'dia';
 
-// Helper para formatear fechas sin problemas de timezone
+
 const formatDateLocal = (dateString: string) => {
   const [year, month, day] = dateString.split('-');
   return `${day}/${month}/${year}`;
@@ -21,12 +21,12 @@ function PreferenciasDetail() {
   const [categoriaComida, setCategoriaComida] = useState<string>('principal');
   const [loading, setLoading] = useState(true);
 
-  // Datos por nivel
+
   const [dataTemporada, setDataTemporada] = useState<PreferenciasTemporada | null>(null);
   const [dataMes, setDataMes] = useState<PreferenciasMes | null>(null);
   const [dataDia, setDataDia] = useState<PreferenciasDia | null>(null);
 
-  // Parámetros de navegación
+
   const [selectedAnio, setSelectedAnio] = useState<number | null>(null);
   const [selectedMes, setSelectedMes] = useState<number | null>(null);
   const [selectedFecha, setSelectedFecha] = useState<string | null>(null);
@@ -181,7 +181,7 @@ function PreferenciasDetail() {
           <h1>Preferencias alimenticias más frecuentes</h1>
         </div>
 
-        {/* NIVEL 1: Vista de Temporada */}
+        {/* Vista de Temporada */}
         {viewLevel === 'temporada' && dataTemporada && (
           <>
             <div className="info-card">
@@ -237,7 +237,7 @@ function PreferenciasDetail() {
           </>
         )}
 
-        {/* NIVEL 2: Vista de Mes */}
+        {/* Vista de Mes */}
         {viewLevel === 'mes' && dataMes && (
           <>
             <div className="info-card">
@@ -297,7 +297,7 @@ function PreferenciasDetail() {
           </>
         )}
 
-        {/* NIVEL 3: Vista de Día */}
+        {/* Vista de Día */}
         {viewLevel === 'dia' && dataDia && selectedFecha && (
           <>
             <div className="info-card">

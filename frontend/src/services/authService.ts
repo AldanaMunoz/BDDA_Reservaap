@@ -38,7 +38,7 @@ const api: AxiosInstance = axios.create({
   }
 });
 
-// Interceptor para agregar token a todas las peticiones
+
 api.interceptors.request.use(
   (config) => {
     const token = localStorage.getItem('token');

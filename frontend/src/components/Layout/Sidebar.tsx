@@ -9,12 +9,12 @@ interface MenuItem {
 }
 
 const menuItems: MenuItem[] = [
-  // menu empleados
+
   { path: '/menu', label: 'Menú del día', roles: ['Empleado'] },
   { path: '/reserva', label: 'Reserva del día', roles: ['Empleado'] },
   { path: '/historial', label: 'Historial de reservas', roles: ['Empleado'] },
   
-  // menu admin
+
   { path: '/reservas-dia', label: 'Reservas del día', roles: ['Administrador'] },
   { path: '/gestion-comida', label: 'Gestión de comida', roles: ['Administrador'] },
   { path: '/planificacion', label: 'Planificación por temporada', roles: ['Administrador'] },
