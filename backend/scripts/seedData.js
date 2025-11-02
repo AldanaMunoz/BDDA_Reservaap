@@ -178,7 +178,7 @@ async function seedData() {
       VALUES (?, ?, ?, ?)
     `, [1, hoy.getFullYear(), inicioTemporada.toISOString().split('T')[0], finTemporada.toISOString().split('T')[0]]);
 
-    console.log(`✅ Temporada creada (ID: ${temporadaResult.insertId})`);
+    console.log(`Temporada creada (ID: ${temporadaResult.insertId})`);
     console.log(`   Desde: ${inicioTemporada.toISOString().split('T')[0]}`);
     console.log(`   Hasta: ${finTemporada.toISOString().split('T')[0]}`);
 
