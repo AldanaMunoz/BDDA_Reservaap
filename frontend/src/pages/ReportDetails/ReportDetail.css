@@ -18,7 +18,7 @@
   font-size: 0.95rem;
 }
 
-/* Gráfico de barras */
+
 .reservas-chart-container {
   background: white;
   border-radius: 12px;
@@ -138,7 +138,7 @@
   color: #666;
 }
 
-/* Tabla ancha para menú completo */
+
 .table-header-row-wide {
   display: grid;
   grid-template-columns: 2fr 1fr 1fr 1.5fr 1.5fr 1.5fr 1fr;

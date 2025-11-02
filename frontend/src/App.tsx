@@ -112,7 +112,7 @@ function App() {
             } 
           />
           
-          {/* Redirección por defecto */}
+          {/* Redirección por default */}
           <Route 
             path="/" 
             element={

@@ -33,7 +33,7 @@ function ReservasPorDiaChart() {
     <MetricCard title="Cantidad de menús reservados por día de la semana">
       <div className="reservas-chart">
         {diasSemana.map((dia, index) => {
-          const diaData = data.find(d => d.dia_numero === index + 2); // MySQL: domingo=1, lunes=2
+          const diaData = data.find(d => d.dia_numero === index + 2); // DB: domingo=1, lunes=2
           const reservas = diaData?.total_reservas || 0;
           const porcentaje = Number(diaData?.porcentaje_ocupacion || 0);
           const semaforo = diaData?.semaforo || 'rojo';
