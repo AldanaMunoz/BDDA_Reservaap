@@ -1,0 +1,222 @@
+.info-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.info-card h3 {
+  color: #709176;
+  margin: 0 0 0.5rem 0;
+  font-size: 1.3rem;
+}
+
+.info-card p {
+  color: #666;
+  margin: 0;
+  font-size: 0.95rem;
+}
+
+/* Gráfico de barras */
+.reservas-chart-container {
+  background: white;
+  border-radius: 12px;
+  padding: 2rem;
+  margin-bottom: 2rem;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.08);
+}
+
+.reservas-bar-chart {
+  display: flex;
+  justify-content: space-around;
+  align-items: flex-end;
+  height: 300px;
+  padding: 1rem 0;
+  gap: 1rem;
+  margin-bottom: 2rem;
+}
+
+.dia-column {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.dia-column.clickable:hover {
+  transform: translateY(-8px);
+}
+
+.bar-container {
+  width: 100%;
+  height: 220px;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.bar {
+  width: 70%;
+  min-height: 40px;
+  border-radius: 8px 8px 0 0;
+  position: relative;
+  transition: all 0.3s ease;
+  display: flex;
+  align-items: flex-start;
+  justify-content: center;
+  padding-top: 0.75rem;
+}
+
+.dia-column:hover .bar {
+  opacity: 0.85;
+  transform: scaleY(1.05);
+}
+
+.bar-verde {
+  background: linear-gradient(180deg, #4CAF50 0%, #66BB6A 100%);
+}
+
+.bar-amarillo {
+  background: linear-gradient(180deg, #FFC107 0%, #FFD54F 100%);
+}
+
+.bar-rojo {
+  background: linear-gradient(180deg, #F44336 0%, #EF5350 100%);
+}
+
+.bar-value {
+  color: white;
+  font-weight: 700;
+  font-size: 1.3rem;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.dia-info {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+  width: 100%;
+}
+
+.dia-nombre {
+  font-weight: 600;
+  color: #333;
+  font-size: 0.95rem;
+}
+
+.dia-stats {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.5rem;
+}
+
+.porcentaje {
+  font-size: 0.85rem;
+  color: #666;
+  font-weight: 500;
+}
+
+.chart-legend {
+  display: flex;
+  justify-content: center;
+  gap: 2rem;
+  padding-top: 1.5rem;
+  border-top: 1px solid #e0e0e0;
+}
+
+.legend-item {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.85rem;
+  color: #666;
+}
+
+/* Tabla ancha para menú completo */
+.table-header-row-wide {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr 1.5fr 1.5fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #666;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.table-data-row-wide {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 1.5fr 1.5fr 1.5fr 1fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.table-data-row-wide:hover {
+  background: #f9f9f9;
+}
+
+.food-item {
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.bold {
+  font-weight: 600;
+  color: #333;
+}
+
+.big-number {
+  font-size: 1.3rem;
+  font-weight: 700;
+  color: #709176;
+}
+
+/* Responsive */
+@media (max-width: 1200px) {
+  .reservas-bar-chart {
+    height: 250px;
+  }
+  
+  .table-header-row-wide,
+  .table-data-row-wide {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+  
+  .table-header-row-wide span,
+  .table-data-row-wide span {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+@media (max-width: 768px) {
+  .reservas-bar-chart {
+    height: 200px;
+    gap: 0.5rem;
+  }
+  
+  .bar {
+    width: 80%;
+  }
+  
+  .dia-nombre {
+    font-size: 0.8rem;
+  }
+  
+  .chart-legend {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+}

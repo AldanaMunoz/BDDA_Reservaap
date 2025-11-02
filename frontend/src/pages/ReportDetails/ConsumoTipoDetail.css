@@ -1,0 +1,213 @@
+/* Card de consumo */
+.consumo-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin: 2rem 0;
+}
+
+/* Barras de consumo */
+.consumo-bars {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  padding: 1rem 0;
+}
+
+.consumo-bar-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.consumo-info-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+}
+
+.consumo-label {
+  font-weight: 600;
+  color: #333;
+  font-size: 1rem;
+}
+
+.consumo-stats {
+  display: flex;
+  gap: 0.5rem;
+  align-items: baseline;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.consumo-percentage {
+  color: #999;
+  font-size: 0.85rem;
+}
+
+.consumo-bar-bg {
+  width: 100%;
+  height: 32px;
+  background: #E0E0E0;
+  border-radius: 16px;
+  overflow: hidden;
+}
+
+.consumo-bar-fill {
+  height: 100%;
+  border-radius: 16px;
+  transition: width 0.5s ease;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  padding-right: 1rem;
+  color: white;
+  font-weight: 600;
+}
+
+/* Grid de meses */
+.meses-grid {
+  margin: 2rem 0;
+}
+
+.meses-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.mes-card {
+  padding: 1.5rem;
+  background: white;
+  border: 2px solid #E0E0E0;
+  border-radius: 12px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.3s ease;
+}
+
+.mes-card:hover {
+  border-color: #709176;
+  transform: translateY(-4px);
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.mes-nombre {
+  font-size: 1.1rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.mes-anio {
+  font-size: 0.9rem;
+  color: #666;
+}
+
+/* Tabla de detalle */
+.detail-table {
+  overflow-x: auto;
+  margin-top: 1rem;
+}
+
+.table-header-row-wide {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1.5fr 1.5fr 2fr;
+  gap: 1rem;
+  padding: 1rem;
+  background: #F5F5F5;
+  border-radius: 8px 8px 0 0;
+  font-weight: 600;
+  color: #333;
+  border-bottom: 2px solid #709176;
+}
+
+.table-data-row-wide {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1.5fr 1.5fr 1.5fr 1.5fr 2fr;
+  gap: 1rem;
+  padding: 1rem;
+  border-bottom: 1px solid #E0E0E0;
+  transition: background 0.2s;
+}
+
+.table-data-row-wide:hover {
+  background: #F9F9F9;
+}
+
+.food-item {
+  color: #666;
+}
+
+.restrictions {
+  color: #F44336;
+  font-size: 0.85rem;
+  font-style: italic;
+}
+
+/* Badge de tipo de empleado */
+.tipo-badge {
+  display: inline-block;
+  padding: 0.25rem 0.75rem;
+  border-radius: 12px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  text-transform: uppercase;
+}
+
+.tipo-interno {
+  background-color: #E8F5E9;
+  color: #2E7D32;
+}
+
+.tipo-externo {
+  background-color: #FFF3E0;
+  color: #E65100;
+}
+
+/* Info card */
+.info-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 12px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  margin-bottom: 2rem;
+}
+
+.info-card h3 {
+  margin: 0 0 0.5rem 0;
+  color: #333;
+}
+
+.info-card p {
+  margin: 0;
+  color: #666;
+}
+
+/* Section title */
+.section-title {
+  font-size: 1.25rem;
+  color: #333;
+  margin-bottom: 1rem;
+  padding-bottom: 0.5rem;
+  border-bottom: 2px solid #E6F8B2;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .table-header-row-wide,
+  .table-data-row-wide {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+
+  .meses-list {
+    grid-template-columns: repeat(auto-fill, minmax(120px, 1fr));
+  }
+
+  .consumo-bar-bg {
+    height: 24px;
+  }
+}

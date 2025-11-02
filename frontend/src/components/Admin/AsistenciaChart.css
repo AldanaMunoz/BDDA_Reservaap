@@ -1,0 +1,94 @@
+.asistencia-container {
+  display: flex;
+  gap: 2rem;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.asistencia-main {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.75rem;
+  padding-right: 2rem;
+  border-right: 2px solid #ddd;
+}
+
+.asistencia-percentage {
+  font-size: 2.5rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.asistencia-label {
+  color: #79745C;
+  margin: 0;
+  font-size: 0.9rem;
+}
+
+.asistencia-stats {
+  display: flex;
+  gap: 2rem;
+  flex: 1;
+}
+
+.stat-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1rem;
+  border-radius: 8px;
+  min-width: 120px;
+}
+
+.stat-item.confirmadas {
+  background: #E8F5E9;
+}
+
+.stat-item.noshow {
+  background: #FFF3E0;
+}
+
+.stat-item.canceladas {
+  background: #FFEBEE;
+}
+
+.stat-value {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+}
+
+.stat-label {
+  color: #79745C;
+  font-size: 0.9rem;
+}
+
+.stat-percent {
+  color: #666;
+  font-size: 0.85rem;
+  font-weight: 500;
+}
+
+@media (max-width: 768px) {
+  .asistencia-container {
+    flex-direction: column;
+  }
+
+  .asistencia-main {
+    border-right: none;
+    border-bottom: 2px solid #ddd;
+    padding-right: 0;
+    padding-bottom: 1rem;
+  }
+
+  .asistencia-stats {
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .stat-item {
+    width: 100%;
+  }
+}

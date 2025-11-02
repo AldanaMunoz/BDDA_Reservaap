@@ -1,0 +1,24 @@
+.page-header {
+  position: relative;
+  margin-bottom: 2rem;
+}
+
+.reserve-btn {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 0.75rem 1.5rem;
+  background: #709176;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  transition: all 0.2s ease;
+}
+
+.reserve-btn:hover {
+  background: #5a7760;
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(112, 145, 118, 0.3);
+}

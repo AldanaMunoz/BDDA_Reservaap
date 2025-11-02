@@ -1,0 +1,52 @@
+.top-usuarios-table {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.table-header {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 80px;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: #f5f5f5;
+  border-radius: 8px;
+  font-weight: 600;
+  color: #666;
+  font-size: 0.85rem;
+  text-transform: uppercase;
+}
+
+.table-row {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr 80px;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  border-bottom: 1px solid #e0e0e0;
+  align-items: center;
+  transition: background 0.2s ease;
+}
+
+.table-row:hover {
+  background: #f9f9f9;
+}
+
+.usuario-nombre {
+  font-weight: 500;
+  color: #333;
+}
+
+.usuario-reservas {
+  font-weight: 700;
+  color: #709176;
+  font-size: 1.1rem;
+}
+
+.usuario-porcentaje {
+  color: #666;
+}
+
+.usuario-semaforo {
+  display: flex;
+  justify-content: center;
+}

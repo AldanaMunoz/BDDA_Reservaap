@@ -1,0 +1,25 @@
+.semaforo-indicator {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.semaforo-light {
+  border-radius: 50%;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+}
+
+.semaforo-indicator.small .semaforo-light {
+  width: 12px;
+  height: 12px;
+}
+
+.semaforo-indicator.medium .semaforo-light {
+  width: 16px;
+  height: 16px;
+}
+
+.semaforo-indicator.large .semaforo-light {
+  width: 24px;
+  height: 24px;
+}
