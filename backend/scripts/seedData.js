@@ -1,9 +1,50 @@
-const bcrypt = require('bcrypt');
-const db = require('../src/config/database');
+import bcrypt from 'bcrypt';
+import mysql from 'mysql2/promise';
+import dotenv from 'dotenv';
+import { fileURLToPath } from 'url';
+import { dirname, join } from 'path';
+
+const __filename = fileURLToPath(import.meta.url);
+const __dirname = dirname(__filename);
+
+dotenv.config({ path: join(__dirname, '..', '.env') });
+
+const db = await mysql.createConnection({
+  host: process.env.DB_HOST || 'localhost',
+  user: process.env.DB_USER || 'root',
+  password: process.env.DB_PASSWORD || '',
+  database: process.env.DB_NAME || 'reservapp',
+  charset: 'utf8mb4'
+});
 
 async function seedData() {
   try {
     console.log('Iniciando población de datos...');
+
+    // 0. Crear usuario administrador
+    console.log('Creando usuario administrador...');
+    const adminPassword = await bcrypt.hash('Admin123!', 10);
+
+    const [adminResult] = await db.query(
+      'INSERT INTO usuarios (email, password, firebaseUID, activo) VALUES (?, ?, ?, 1)',
+      ['admin@reservapp.com', adminPassword, `admin_${Date.now()}`]
+    );
+
+    const adminUserId = adminResult.insertId;
+
+    await db.query(
+      'INSERT INTO personas (id_usuario, nombre, apellido, activo) VALUES (?, ?, ?, 1)',
+      [adminUserId, 'Admin', 'Sistema']
+    );
+
+    await db.query(
+      'INSERT INTO usuarios_roles (id_usuario, id_rol) VALUES (?, 1)',
+      [adminUserId]
+    );
+
+    console.log('✅ Usuario administrador creado');
+    console.log('   Email: admin@reservapp.com');
+    console.log('   Password: Admin123!');
 
     // 1. Crear usuarios empleados (necesitamos ~800 para tener 500-700 reservas diarias)
     const usuarios = [];
@@ -50,13 +91,25 @@ async function seedData() {
     
     console.log(`✅ ${usuarios.length} usuarios empleados creados`);
 
-    // 2. Obtener IDs de comidas por tipo
-    const [entradas] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = 1 AND activa = 1');
-    const [principales] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = 2 AND activa = 1');
-    const [alternativos] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = 3 AND activa = 1');
-    const [vegetarianos] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = 4 AND activa = 1');
-    const [bebidas] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = 5 AND activa = 1');
-    const [postres] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = 6 AND activa = 1');
+    // 2. Crear comidas básicas
+    console.log('\nCreando comidas...');
+
+    // 2. Obtener IDs de tipos de comida
+    const [tiposComida] = await db.query('SELECT id, nombre FROM comidas_tipos');
+    const tipoEntrada = tiposComida.find(t => t.nombre === 'Entrada').id;
+    const tipoPrincipal = tiposComida.find(t => t.nombre === 'Principal').id;
+    const tipoAlternativo = tiposComida.find(t => t.nombre === 'Alternativo').id;
+    const tipoVegetariano = tiposComida.find(t => t.nombre === 'Vegetariano').id;
+    const tipoBebida = tiposComida.find(t => t.nombre === 'Bebida').id;
+    const tipoPostre = tiposComida.find(t => t.nombre === 'Postre').id;
+
+    // Obtener IDs de comidas por tipo
+    const [entradas] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = ? AND activa = 1', [tipoEntrada]);
+    const [principales] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = ? AND activa = 1', [tipoPrincipal]);
+    const [alternativos] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = ? AND activa = 1', [tipoAlternativo]);
+    const [vegetarianos] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = ? AND activa = 1', [tipoVegetariano]);
+    const [bebidas] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = ? AND activa = 1', [tipoBebida]);
+    const [postres] = await db.query('SELECT id FROM comidas WHERE id_comida_tipo = ? AND activa = 1', [tipoPostre]);
 
     console.log('Comidas obtenidas de la base de datos');
     console.log(`   Entradas: ${entradas.length}, Principales: ${principales.length}`);
@@ -133,20 +186,14 @@ async function seedData() {
 
     // 4. Crear restricciones alimenticias OPCIONALES (solo 20% de usuarios tienen restricciones)
     console.log('\nAsignando restricciones alimenticias...');
-    const restriccionesIds = [1, 2]; // Sin TACC, Vegetariano
-    let restriccionesCreadas = 0;
 
-    // Crear tabla de relación usuario-restricciones si no existe
-    await db.query(`
-      CREATE TABLE IF NOT EXISTS usuario_restricciones (
-        id INT UNSIGNED AUTO_INCREMENT PRIMARY KEY,
-        id_usuario INT UNSIGNED NOT NULL,
-        id_restriccion INT UNSIGNED NOT NULL,
-        UNIQUE KEY uk_usuario_restriccion (id_usuario, id_restriccion),
-        FOREIGN KEY (id_usuario) REFERENCES usuarios(id) ON DELETE CASCADE,
-        FOREIGN KEY (id_restriccion) REFERENCES comidas_restricciones(id) ON DELETE CASCADE
-      ) ENGINE=InnoDB
-    `);
+    // Obtener IDs de restricciones
+    const [restricciones] = await db.query('SELECT id, nombre FROM comidas_restricciones');
+    const restriccionVegetariano = restricciones.find(r => r.nombre === 'Vegetariano')?.id;
+    const restriccionSinTacc = restricciones.find(r => r.nombre === 'Sin TACC')?.id;
+    const restriccionesIds = [restriccionVegetariano, restriccionSinTacc].filter(id => id);
+
+    let restriccionesCreadas = 0;
 
     for (const userId of usuarios) {
       // Solo 20% de usuarios tienen alguna restricción
@@ -182,21 +229,28 @@ async function seedData() {
     console.log(`   Desde: ${inicioTemporada.toISOString().split('T')[0]}`);
     console.log(`   Hasta: ${finTemporada.toISOString().split('T')[0]}`);
 
-    console.log('\n¡Datos de prueba creados exitosamente!');
-    console.log('\n Resumen Final:');
+    console.log('\n🎉 ¡Datos de prueba creados exitosamente!');
+    console.log('\n📊 Resumen Final:');
+    console.log(`   - 1 usuario administrador`);
     console.log(`   - ${usuarios.length} usuarios empleados`);
     console.log(`   - ${reservasCreadas} reservas en ${diasProcesados} días laborables`);
     console.log(`   - Promedio: ${Math.round(reservasCreadas / diasProcesados)} reservas/día (objetivo: 500-700)`);
     console.log(`   - ${restriccionesCreadas} usuarios con restricciones (${Math.round((restriccionesCreadas/usuarios.length)*100)}%)`);
     console.log(`   - ${usuarios.length - restriccionesCreadas} usuarios sin restricciones (${Math.round(((usuarios.length - restriccionesCreadas)/usuarios.length)*100)}%)`);
     console.log(`   - 1 temporada activa de 4 semanas`);
-    console.log('\n Credenciales de prueba:');
-    console.log('   Email: empleado1@reservapp.com hasta empleado800@reservapp.com');
-    console.log('   Password: Test123!');
-    
+    console.log('\n🔐 Credenciales de acceso:');
+    console.log('   👤 Admin:');
+    console.log('      Email: admin@reservapp.com');
+    console.log('      Password: Admin123!');
+    console.log('   👥 Empleados:');
+    console.log('      Email: empleado1@reservapp.com hasta empleado800@reservapp.com');
+    console.log('      Password: Test123!');
+
+    await db.end();
     process.exit(0);
   } catch (error) {
-    console.error('Error al poblar datos:', error);
+    console.error('❌ Error al poblar datos:', error);
+    await db.end();
     process.exit(1);
   }
 }

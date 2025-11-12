@@ -9,7 +9,7 @@ import {
   type ReservasPorDiaDetalle,
   type ReservasFechaDetalle 
 } from '../../services/metricsService';
-import './ReservasPorDiaDetail.css';
+import './ReportDetail.css';
 
 type ViewLevel = 'temporada' | 'dia_semana' | 'fecha';
 
